@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShadowTrack</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#050816;
+    --bg2:#0b1020;
+    --card:rgba(255,255,255,.05);
+    --border:rgba(255,255,255,.1);
+    --text:#ffffff;
+    --muted:#b7bfd3;
+
+    --grad1:#8b5cf6;
+    --grad2:#06b6d4;
+    --grad3:#ec4899;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:white;
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at 20% 20%, rgba(139,92,246,.25), transparent 30%),
+    radial-gradient(circle at 80% 20%, rgba(6,182,212,.2), transparent 30%),
+    radial-gradient(circle at 50% 80%, rgba(236,72,153,.2), transparent 30%);
+    z-index:-2;
+}
+
+.blur{
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:.3;
+    z-index:-1;
+}
+
+.blur1{
+    background:#8b5cf6;
+    top:-150px;
+    left:-150px;
+}
+
+.blur2{
+    background:#06b6d4;
+    bottom:-150px;
+    right:-150px;
+}
+
+.container{
+    width:min(1200px,90%);
+    margin:auto;
+}
+
+nav{
+    position:fixed;
+    width:100%;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(20px);
+    background:rgba(5,8,22,.5);
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.nav-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:1rem 0;
+}
+
+.logo{
+    font-family:'Space Grotesk';
+    font-size:1.4rem;
+    font-weight:700;
+}
+
+.logo span{
+    background:linear-gradient(135deg,#8b5cf6,#06b6d4);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.nav-links{
+    display:flex;
+    gap:2rem;
+}
+
+.nav-links a{
+    color:#d1d5db;
+    text-decoration:none;
+}
+
+.btn{
+    padding:.9rem 1.4rem;
+    border:none;
+    border-radius:999px;
+    background:linear-gradient(135deg,#8b5cf6,#06b6d4);
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    text-align:center;
+}
+
+.hero h1{
+    font-family:'Space Grotesk';
+    font-size:clamp(3rem,8vw,6rem);
+    line-height:1;
+    margin-bottom:1.5rem;
+}
+
+.hero h1 span{
+    background:linear-gradient(135deg,#8b5cf6,#06b6d4,#ec4899);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:700px;
+    margin:auto;
+    color:var(--muted);
+    font-size:1.15rem;
+    line-height:1.8;
+}
+
+.hero-buttons{
+    margin-top:2rem;
+    display:flex;
+    justify-content:center;
+    gap:1rem;
+}
+
+.secondary{
+    background:transparent;
+    border:1px solid rgba(255,255,255,.15);
+}
+
+section{
+    padding:8rem 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:4rem;
+}
+
+.section-title h2{
+    font-family:'Space Grotesk';
+    font-size:3rem;
+    margin-bottom:1rem;
+}
+
+.section-title p{
+    color:var(--muted);
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:1.5rem;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:2rem;
+    backdrop-filter:blur(20px);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card h3{
+    margin-bottom:1rem;
+    font-family:'Space Grotesk';
+}
+
+.card p{
+    color:var(--muted);
+    line-height:1.7;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1rem;
+}
+
+.stat{
+    text-align:center;
+    padding:2rem;
+    background:var(--card);
+    border-radius:24px;
+}
+
+.stat h3{
+    font-size:2.5rem;
+    font-family:'Space Grotesk';
+}
+
+.testimonial{
+    font-style:italic;
+}
+
+.free-section{
+    text-align:center;
+    padding:5rem;
+    background:linear-gradient(
+        135deg,
+        rgba(139,92,246,.15),
+        rgba(6,182,212,.1)
+    );
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:40px;
+}
+
+.free-section h2{
+    font-size:3rem;
+    font-family:'Space Grotesk';
+}
+
+.free-section p{
+    max-width:700px;
+    margin:1rem auto;
+    color:var(--muted);
+}
+
+footer{
+    padding:4rem 0;
+    text-align:center;
+    color:var(--muted);
+    border-top:1px solid rgba(255,255,255,.05);
+}
+
+@media(max-width:800px){
+
+.nav-links{
+    display:none;
+}
+
+.stats{
+    grid-template-columns:1fr 1fr;
+}
+
+.hero-buttons{
+    flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="blur blur1"></div>
+<div class="blur blur2"></div>
+
+<nav>
+<div class="container nav-inner">
+<div class="logo">Shadow<span>Track</span></div>
+
+<div class="nav-links">
+<a href="#">Features</a>
+<a href="#">Benefits</a>
+<a href="#">About</a>
+<a href="#">Testimonials</a>
+</div>
+
+<button class="btn">Get Started</button>
+</div>
+</nav>
+
+<section class="hero">
+<div class="container">
+
+<h1>
+Track Every
+<span>Shadowing Hour</span>
+With Confidence
+</h1>
+
+<p>
+The modern shadowing tracker designed for aspiring physicians,
+dentists, nurses, physician assistants, and healthcare students.
+Organize hours, physicians, specialties, notes, and reflections
+all in one place.
+</p>
+
+<div class="hero-buttons">
+<button class="btn">Start Tracking Free</button>
+<button class="btn secondary">Learn More</button>
+</div>
+
+</div>
+</section>
+
+<section>
+<div class="container">
+
+<div class="section-title">
+<h2>Why Students Love ShadowTrack</h2>
+<p>Built specifically for healthcare career pathways.</p>
+</div>
+
+<div class="stats">
+<div class="stat">
+<h3>100%</h3>
+<p>Free</p>
+</div>
+
+<div class="stat">
+<h3>∞</h3>
+<p>Unlimited Hours</p>
+</div>
+
+<div class="stat">
+<h3>24/7</h3>
+<p>Access</p>
+</div>
+
+<div class="stat">
+<h3>0</h3>
+<p>Ads</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<section>
+<div class="container">
+
+<div class="section-title">
+<h2>Features</h2>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>Hour Logging</h3>
+<p>Track dates, duration, specialties, physicians, and facilities.</p>
+</div>
+
+<div class="card">
+<h3>Reflection Journal</h3>
+<p>Store meaningful patient-care observations and experiences.</p>
+</div>
+
+<div class="card">
+<h3>Progress Dashboard</h3>
+<p>Visualize total hours and specialty exposure over time.</p>
+</div>
+
+<div class="card">
+<h3>Application Ready</h3>
+<p>Export records when preparing for college or professional programs.</p>
+</div>
+
+<div class="card">
+<h3>Secure Storage</h3>
+<p>Your experiences remain organized and accessible.</p>
+</div>
+
+<div class="card">
+<h3>Mobile Friendly</h3>
+<p>Log hours from anywhere on any device.</p>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<section>
+<div class="container">
+
+<div class="section-title">
+<h2>Built By Students</h2>
+</div>
+
+<div class="card">
+<p>
+ShadowTrack was created by students who aspire to become healthcare
+professionals. We understand how difficult it can be to keep track of
+shadowing experiences across multiple clinics, specialties, and physicians.
+Our goal is simple: provide a professional tool that remains accessible to
+every student pursuing a future in healthcare.
+</p>
+</div>
+
+</div>
+</section>
+
+<section>
+<div class="container">
+
+<div class="section-title">
+<h2>Testimonials</h2>
+</div>
+
+<div class="grid">
+
+<div class="card testimonial">
+"Finally a simple way to organize all my shadowing experiences."
+</div>
+
+<div class="card testimonial">
+"The dashboard helped me understand which specialties I had explored."
+</div>
+
+<div class="card testimonial">
+"Exactly the tool I wish I had during my first shadowing experience."
+</div>
+
+</div>
+
+</div>
+</section>
+
+<section>
+<div class="container">
+
+<div class="free-section">
+
+<h2>Free Forever.</h2>
+
+<p>
+No subscriptions. No premium tiers. No locked features.
+Every student deserves access to professional tools while
+pursuing a healthcare career.
+</p>
+
+<br>
+
+<button class="btn">
+Start Tracking Today
+</button>
+
+</div>
+</div>
+</section>
+
+<footer>
+© 2026 ShadowTrack • Built for future healthcare professionals.
+</footer>
+
+</body>
+</html>
