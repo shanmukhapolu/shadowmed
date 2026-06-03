@@ -330,16 +330,20 @@ footer{
 
 .reveal{
     opacity:0;
-    transform:translateY(40px);
+    transform:translateY(30px);
     transition:
-        opacity .8s ease,
-        transform .8s ease;
+        opacity .7s ease,
+        transform .7s ease;
 }
 
 .reveal.active{
     opacity:1;
     transform:none;
 }
+
+.card:nth-child(2){ transition-delay:.1s; }
+.card:nth-child(3){ transition-delay:.2s; }
+.card:nth-child(4){ transition-delay:.3s; }
 
 @media(max-width:800px){
 
