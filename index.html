@@ -150,6 +150,8 @@ nav{
 }
 
 .btn{
+    position:relative;
+    overflow:hidden;
     padding:.9rem 1.4rem;
     border:none;
     border-radius:999px;
@@ -158,6 +160,41 @@ nav{
     font-family:'Inter',sans-serif;
     font-weight:600;
     cursor:pointer;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    box-shadow:
+        0 8px 24px rgba(139,92,246,.35),
+        0 4px 12px rgba(6,182,212,.25);
+}
+
+.btn::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:60%;
+    height:100%;
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,.35),
+        transparent
+    );
+    transform:skewX(-25deg);
+    transition:left .8s ease;
+}
+
+.btn:hover::before{
+    left:150%;
+}
+
+.btn:active{
+    transform:translateY(0) scale(.98);
 }
 
 .hero{
@@ -207,8 +244,17 @@ nav{
 }
 
 .secondary{
-    background:transparent;
+    background:rgba(255,255,255,.03);
     border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(12px);
+    box-shadow:none;
+}
+
+.secondary:hover{
+    border-color:rgba(139,92,246,.5);
+    box-shadow:
+        0 0 20px rgba(139,92,246,.15);
+    background:rgba(255,255,255,.06);
 }
 
 section{
