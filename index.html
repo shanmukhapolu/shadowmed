@@ -328,6 +328,19 @@ footer{
         translateY(-10px);
 }
 
+.reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.active{
+    opacity:1;
+    transform:none;
+}
+
 @media(max-width:800px){
 
 .nav-links{
@@ -404,28 +417,28 @@ A system for recording shadowing hours and clinical experiences in one place, he
 <section>
 <div class="container">
 
-<div class="section-title">
+<div class="section-title reveal">
 <h2>Why Students Love ShadowMed</h2>
 <p>Built specifically for healthcare career pathways.</p>
 </div>
 
 <div class="stats">
-<div class="stat">
+<div class="stat reveal">
 <h3>100%</h3>
 <p>Free</p>
 </div>
 
-<div class="stat">
+<div class="stat reveal">
 <h3>∞</h3>
 <p>Unlimited Hours</p>
 </div>
 
-<div class="stat">
+<div class="stat reveal">
 <h3>24/7</h3>
 <p>Access</p>
 </div>
 
-<div class="stat">
+<div class="stat reveal">
 <h3>0</h3>
 <p>Ads</p>
 </div>
@@ -437,38 +450,38 @@ A system for recording shadowing hours and clinical experiences in one place, he
 <section>
 <div class="container">
 
-<div class="section-title">
+<div class="section-title reveal">
 <h2>Features</h2>
 </div>
 
 <div class="grid">
 
-<div class="card">
+<div class="card reveal">
 <h3>Hour Logging</h3>
 <p>Track dates, duration, specialties, physicians, and facilities.</p>
 </div>
 
-<div class="card">
+<div class="card reveal">
 <h3>Reflection Journal</h3>
 <p>Store meaningful patient-care observations and experiences.</p>
 </div>
 
-<div class="card">
+<div class="card reveal">
 <h3>Progress Dashboard</h3>
 <p>Visualize total hours and specialty exposure over time.</p>
 </div>
 
-<div class="card">
+<div class="card reveal">
 <h3>Application Ready</h3>
 <p>Export records when preparing for college or professional programs.</p>
 </div>
 
-<div class="card">
+<div class="card reveal">
 <h3>Secure Storage</h3>
 <p>Your experiences remain organized and accessible.</p>
 </div>
 
-<div class="card">
+<div class="card reveal">
 <h3>Mobile Friendly</h3>
 <p>Log hours from anywhere on any device.</p>
 </div>
@@ -481,11 +494,11 @@ A system for recording shadowing hours and clinical experiences in one place, he
 <section>
 <div class="container">
 
-<div class="section-title">
+<div class="section-title reveal">
 <h2>Built By Students</h2>
 </div>
 
-<div class="card">
+<div class="card reveal">
 <p>
 ShadowMed was created by students who are also figuring out what it means to step into medicine, dealing with the same scattered notes, forgotten hours, and unorganized experiences across clinics and specialties. It’s meant to bring those moments into one place that actually reflects the effort behind them, so nothing important gets lost while you’re focused on learning.
 </p>
@@ -497,21 +510,21 @@ ShadowMed was created by students who are also figuring out what it means to ste
 <section>
 <div class="container">
 
-<div class="section-title">
+<div class="section-title reveal">
 <h2>What Students Are Saying</h2>
 </div>
 
 <div class="grid">
 
-<div class="card testimonial">
+<div class="card testimonial reveal">
 "Finally a simple way to organize all my shadowing experiences."
 </div>
 
-<div class="card testimonial">
+<div class="card testimonial reveal">
 "The dashboard helped me understand which specialties I had explored."
 </div>
 
-<div class="card testimonial">
+<div class="card testimonial reveal">
 "Exactly the tool I wish I had during my first shadowing experience."
 </div>
 
@@ -523,7 +536,7 @@ ShadowMed was created by students who are also figuring out what it means to ste
 <section>
 <div class="container">
 
-<div class="free-section">
+<div class="free-section reveal">
 
 <h2>Free Forever.</h2>
 
@@ -548,4 +561,25 @@ Start Tracking Today
 </footer>
 
 </body>
+<script>
+const reveals =
+document.querySelectorAll('.reveal');
+
+const observer =
+new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+entry.target.classList.add('active');
+}
+
+});
+
+},{threshold:.15});
+
+reveals.forEach(el=>{
+observer.observe(el);
+});
+</script>
 </html>
